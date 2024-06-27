@@ -1,0 +1,8 @@
+.info > h1,
+.info > p {
+    color: white;
+}
+
+.info > h3 {
+    color: #F3BF99;
+}
