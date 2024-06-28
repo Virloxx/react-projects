@@ -50,6 +50,10 @@
     margin-bottom: 34px;
 }
 
+.info > button:hover {
+    background-color: #D1D5DB;
+}
+
 .email--icon {
     height: 16px;
     width: 16px;
