@@ -8,8 +8,8 @@ export default function Info() {
             <h3>Student</h3>
             <p className="info--website">oskarpankowski.website</p>
             <button type="button">
-                <img src="src/assets/Email Icon.svg" alt="Email Icon"/>
-                <span>Email</span>
+                <img className="email--icon" src="src/assets/Email Icon.svg" alt="Email Icon"/>
+                <div>Email</div>
             </button>
         </div>
     )
