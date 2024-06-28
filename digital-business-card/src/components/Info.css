@@ -6,3 +6,10 @@
 .info > h3 {
     color: #F3BF99;
 }
+
+.info > img {
+    height: 317px;
+    width: 317px;
+    object-fit: cover;
+    object-position: 0% 40%;
+}
