@@ -1,16 +1,21 @@
 .interests,
 .about {
     padding: 0px 35px;
+    color: white;
 }
 
 .interests--title,
 .about--title {
     margin: 0;
     color: #F5F5F5;
+    font-size: 16px;
 }
 
 .interests--list,
 .about--text {
     font-weight: 400;
     color: #DCDCDC;
+    font-size: 10px;
+    margin-top: 5px;
+    letter-spacing: 0.05em;
 }

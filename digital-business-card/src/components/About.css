@@ -1,15 +1,4 @@
-.about {
-    color: white;
-}
-
 .about--text {
-    font-size: 10px;
     line-height: 15px;
-    margin-top: 5px;
     margin-bottom: 27px;
-    letter-spacing: 0.05em;
-}
-
-.about--title {
-    font-size: 16px;
 }

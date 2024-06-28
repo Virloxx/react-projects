@@ -1,18 +1,7 @@
-.interests {
-    color: white;
-}
-
 .interests--list {
-    font-size: 10px;
-    margin-top: 5px;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    letter-spacing: 0.05em;
-}
-
-.interests--title {
-    font-size: 16px;
 }
 
 ul {
