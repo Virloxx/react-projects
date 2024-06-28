@@ -1,3 +1,11 @@
 .about {
     color: white;
 }
+
+.about--text {
+    font-size: 10px;
+}
+
+.about--title {
+    font-size: 16px;
+}

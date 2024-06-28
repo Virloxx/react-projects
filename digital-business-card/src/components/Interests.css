@@ -1,3 +1,11 @@
 .interests {
     color: white;
 }
+
+.interests--list {
+    font-size: 10px;
+}
+
+.interests--title {
+    font-size: 16px;
+}

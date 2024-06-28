@@ -8,4 +8,15 @@ html {
     width: 550px;
     height: 868px;
     margin: 100px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    width: 317px;
+    height: 780px;
+    background-color: #1A1B21;
+
+    /* border-radius: 10px; */
 }
