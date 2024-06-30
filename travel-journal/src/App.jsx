@@ -6,9 +6,12 @@ import data from './data'
 function App() {
   const cards = data.map((card) => {
     return (
-      <Card 
-        {...card}
-      />
+      <>
+            <Card 
+              {...card}
+            />
+            <hr className="card--spacer"/>
+      </>
     )
   })
   
