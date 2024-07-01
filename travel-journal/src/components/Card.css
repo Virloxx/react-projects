@@ -1,6 +1,53 @@
 .card--image {
-    height: 336px;
-    width: 250px;
+    width: 187.5px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 7.5px;
+}
+
+.card {
+    height: 252px;
+    display: flex;
+    gap: 28.5px;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+}
+
+.pin--icon {
+    width: 10.5px;
+    height: 14.3px;
+}
+
+.location--link {
+    color: #918E9B;
+}
+
+.country {
+    padding: 0px 18px 0px 6px;
+}
+
+.card--title {
+    font-size: 37.5px;
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.card--date {
+    font-weight: 700;
+    margin-bottom: 13.5px;
+}
+
+.description,
+.card--date,
+.country,
+.location--link {
+    font-size: 15.4px;
+}
+
+.description,
+.country,
+.location--link {
+    font-weight: 400;
 }
