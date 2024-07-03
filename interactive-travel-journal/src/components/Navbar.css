@@ -1,0 +1,21 @@
+.navbar {
+    background-color: #F55A5A;
+    height: 82.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10.5px;
+    margin-bottom: 76.5px;
+}
+
+.navbar--title {
+    color: white;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 21.7px;
+}
+
+.world-icon {
+    height: 36px;
+    width: 36px;
+}

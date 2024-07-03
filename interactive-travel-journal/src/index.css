@@ -1,0 +1,16 @@
+html {
+    font-family: Inter, sans-serif;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+}
+
+#wrapper {
+    background-color: white;
+    width: 825px;
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 1);
+}
