@@ -4,8 +4,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10.5px;
     margin-bottom: 76.5px;
+    position: relative;
 }
 
 .navbar--title {
@@ -19,3 +19,29 @@
     height: 36px;
     width: 36px;
 }
+
+.navbar--logo {
+    display: flex;
+    align-items: center;
+    gap: 10.5px;
+}
+
+.navbar--button {
+    position: absolute;
+    right: 36px;
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    height: 36px;
+    width: 36px;
+}
+
+.plus-icon {
+    height: 100%;
+    width: 100%;
+}
+
+.navbar--button:active {
+    transform: translateY(1px);
+  }
