@@ -2,7 +2,9 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
 import data from './data'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { onSnapshot, addDoc } from 'firebase/firestore'
+import { cardsCollection } from './firebase'
 
 function App() {
   const [cards, setCards] = useState(data)
@@ -18,7 +20,18 @@ function App() {
     )
   })
 
-  function addCard() {
+  useEffect(() => {
+    const unsubscribe = onSnapshot(cardsCollection, (snapshot) => {
+      const cardsArr = snapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+      }))
+      setCards(cardsArr)
+    })
+    return () => unsubscribe()
+  }, [])
+
+  async function addCard() {
     const newCard = {
       title: prompt("Enter place:"),
       location: prompt("Enter country:"),
@@ -28,7 +41,8 @@ function App() {
       description: prompt("Enter description:"),
       imageUrl: prompt("Enter an image URL:")
     }
-    setCards(prevState => [...prevState, newCard])
+    const newCardRef = await addDoc(cardsCollection, newCard)
+    // setCards(prevState => [...prevState, newCard])
   }
 
   return (
