@@ -43,5 +43,5 @@
 }
 
 .navbar--button:active {
-    transform: translateY(1px);
+    transform: translateY(1.5px);
   }
