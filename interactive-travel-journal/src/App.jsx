@@ -1,24 +1,12 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
-import data from './data'
 import { useState, useEffect } from 'react'
-import { onSnapshot, addDoc } from 'firebase/firestore'
-import { cardsCollection } from './firebase'
+import { onSnapshot, addDoc, doc, deleteDoc } from 'firebase/firestore'
+import { cardsCollection, db } from './firebase'
 
 function App() {
-  const [cards, setCards] = useState(data)
-
-  const cardElements = cards.map((card) => {
-    return (
-      <div className="card--container">
-        <Card
-          {...card}
-        />
-        <hr className="card--spacer"/>
-      </div>
-    )
-  })
+  const [cards, setCards] = useState([])
 
   useEffect(() => {
     const unsubscribe = onSnapshot(cardsCollection, (snapshot) => {
@@ -31,6 +19,18 @@ function App() {
     return () => unsubscribe()
   }, [])
 
+  const cardElements = cards.map((card) => {
+    return (
+      <div className="card--container">
+        <Card
+          {...card}
+          deleteCard={deleteCard}
+        />
+        <hr className="card--spacer"/>
+      </div>
+    )
+  })
+
   async function addCard() {
     const newCard = {
       title: prompt("Enter place:"),
@@ -41,8 +41,12 @@ function App() {
       description: prompt("Enter description:"),
       imageUrl: prompt("Enter an image URL:")
     }
-    const newCardRef = await addDoc(cardsCollection, newCard)
-    // setCards(prevState => [...prevState, newCard])
+    await addDoc(cardsCollection, newCard)
+  }
+
+  async function deleteCard(cardId) {
+    const docRef = doc(db, "cards", cardId)
+    await deleteDoc(docRef)
   }
 
   return (

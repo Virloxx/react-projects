@@ -1,3 +1,5 @@
+// NOT USED ANYMORE! //
+
 export default [
     {
         title: "Mount Fuji",
