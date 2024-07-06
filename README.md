@@ -6,3 +6,5 @@ This is a repository for storing all of my React projects.
 I completed this project as part of the ***Scrimba React 101 course***. I learned the basic structure of projects in React and how to create new components.
 2. **Travel Journal:**
 It was the second project of the ***Scrimba React 101 course***. I learned how to utilize props and map data effectively.
+3. **Interactive Travel Journal:**
+After completing the third part of the ***Scrimba React 101 course***, I decided to make my previous project interactive. I learned about state, conditional rendering, forms, and side effects in React. I implemented a feature that allows users to add new "Cards" by filling out a pop-up form. Additionally, users now have the ability to delete Cards. All data is connected to a **Firebase** database.
