@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import Card from './components/Card'
 import { useState, useEffect } from 'react'
 import { onSnapshot, addDoc, doc, deleteDoc } from 'firebase/firestore'
-import { cardsCollection, db } from './firebase'
+import { cardsCollection, db } from './firebase.config'
 
 function App() {
   const [cards, setCards] = useState([])
