@@ -65,7 +65,7 @@
 
 .delete--button:active {
     transform: translateY(1.5px);
-  }
+}
 
 .card:hover .delete--button {
     display: block;

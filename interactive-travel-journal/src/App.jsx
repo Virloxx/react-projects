@@ -2,6 +2,7 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
 import Popup from './components/Popup'
+import Form from './components/Form'
 import { useState, useEffect } from 'react'
 import { onSnapshot, addDoc, doc, deleteDoc } from 'firebase/firestore'
 import { cardsCollection, db } from './firebase.config'
@@ -23,7 +24,7 @@ function App() {
 
   const cardElements = cards.map((card) => {
     return (
-      <div className="card--container">
+      <div className="card--container" key={card.id}>
         <Card
           {...card}
           deleteCard={deleteCard}
@@ -33,16 +34,7 @@ function App() {
     )
   })
 
-  async function addCard() {
-    const newCard = {
-      title: prompt("Enter place:"),
-      location: prompt("Enter country:"),
-      googleMapsUrl: prompt("Enter Google Maps URL:"),
-      startDate: prompt("Enter start date:"),
-      endDate: prompt("Enter end date:"),
-      description: prompt("Enter description:"),
-      imageUrl: prompt("Enter an image URL:")
-    }
+  async function addCard(newCard) {
     await addDoc(cardsCollection, newCard)
   }
 
@@ -51,20 +43,22 @@ function App() {
     await deleteDoc(docRef)
   }
 
-  function showPopup() {
+  function togglePopup() {
     setPopup(prevState => !prevState)
   }
-
+  
   return (
     <>
       <Navbar 
-        handleClick={showPopup}
+        handleClick={togglePopup}
       />
       {cardElements}
       <Popup 
         trigger={popup} 
-        close={showPopup}>
-        <h3>My popup</h3>
+        close={togglePopup}>
+        <Form 
+          addCard={addCard}
+        />
       </Popup>
     </>
   )
