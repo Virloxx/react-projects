@@ -1,12 +1,14 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import Card from './components/Card'
+import Popup from './components/Popup'
 import { useState, useEffect } from 'react'
 import { onSnapshot, addDoc, doc, deleteDoc } from 'firebase/firestore'
 import { cardsCollection, db } from './firebase.config'
 
 function App() {
   const [cards, setCards] = useState([])
+  const [popup, setPopup] = useState(false)
 
   useEffect(() => {
     const unsubscribe = onSnapshot(cardsCollection, (snapshot) => {
@@ -49,12 +51,21 @@ function App() {
     await deleteDoc(docRef)
   }
 
+  function showPopup() {
+    setPopup(prevState => !prevState)
+  }
+
   return (
     <>
       <Navbar 
-        handleClick={addCard}
+        handleClick={showPopup}
       />
       {cardElements}
+      <Popup 
+        trigger={popup} 
+        close={showPopup}>
+        <h3>My popup</h3>
+      </Popup>
     </>
   )
 }
