@@ -11,9 +11,9 @@ function App() {
   }
 
   return (
-    <>
+    <div className="wrapper">
       {startQuiz ? <Quiz /> : <StartScreen toggleStart={toggleStart} />}
-    </>
+    </div>
   )
 }
 
