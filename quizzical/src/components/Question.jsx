@@ -1,25 +1,30 @@
+import { useState } from 'react'
 import './Question.css'
 
 export default function Question(props) {
-    const answers = props.answers.map((answer, index) => (
-            <div key={index}>
-                <input
-                    type="radio"
-                    id={answer}
-                    name="question"
-                    value={answer}
-                />
-                <label htmlFor={answer}>{answer}</label>
-            </div>
+    const [selectedAnswer, setSelectedAnswer] = useState(null)
+
+    function handleClick(index) {
+        setSelectedAnswer(index)
+    }
+
+    const answers = props.answers.map((answer) => (
+            <button 
+                onClick={() => handleClick(answer)}
+                className={`answer-button ${selectedAnswer === answer ? "selected" : ""}`}
+                key={answer}
+            >
+                {answer}
+            </button>
         )
     )
 
     return (
         <div>
-            <h2>{props.question}</h2>
-            <form>
+            <h2 className="question-title">{props.question}</h2>
+            <div className="answers">
                 {answers}
-            </form>
+            </div>
             <hr />
         </div>
     );
