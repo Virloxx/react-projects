@@ -6,4 +6,9 @@ html {
     background-image: url(./assets/blob-blue.svg), url(./assets/blob-yellow.svg);
     background-repeat: no-repeat, no-repeat;
     background-position: left bottom, right top;
-}   
+    background-color: #F5F7FB;
+}
+
+h1, h2 {
+    font-family: "Karla", sans-serif;;
+}
