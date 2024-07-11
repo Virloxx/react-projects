@@ -12,3 +12,8 @@ html {
 h1, h2 {
     font-family: "Karla", sans-serif;;
 }
+
+hr {
+    border: 1px solid #DBDEF0;
+    margin: 18px 0px 9px 0px;
+}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import './App.css'
-import Quiz from './components/Quiz'
 import StartScreen from './components/StartScreen'
+import Quiz from './components/Quiz'
+import './App.css'
 
 function App() {
   const [startQuiz, setStartQuiz] = useState(false)

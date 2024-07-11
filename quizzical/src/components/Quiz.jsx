@@ -8,7 +8,7 @@ export default function Quiz() {
 
     useEffect(() => {
         async function getQuestions() {
-            const response = await fetch("https://opentdb.com/api.php?amount=5&difficulty=easy")
+            const response = await fetch("https://opentdb.com/api.php?amount=5")
             const data = await response.json()
             const decodedData = data.results.map(question => {
                 return {
@@ -34,11 +34,11 @@ export default function Quiz() {
     ))
 
     return (
-        <>
+        <div className="quiz-container">
             {questionElements}
-            <button type="button">
+            <button className="check-answers-button" type="button">
                 Check answers
             </button>
-        </>
+        </div>
     )
 }
