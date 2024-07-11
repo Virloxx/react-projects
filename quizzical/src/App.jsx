@@ -1,30 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
-import Question from './components/Question'
+import Quiz from './components/Quiz'
+import StartScreen from './components/StartScreen'
 
 function App() {
-  const [allQuestions, setAllQuestions] = useState([])
+  const [startQuiz, setStartQuiz] = useState(false)
 
-  useEffect(() => {
-    async function getQuestions() {
-      const response = await fetch("https://opentdb.com/api.php?amount=5")
-      const data = await response.json()
-      setAllQuestions(data.results)
-    }
-    getQuestions()
-  }, [])
-
-  const questionElements = allQuestions.map((question, index) => (
-    <Question
-      key={index}
-      question={question.question}
-      answers={question.incorrect_answers.concat(question.correct_answer)}
-    />
-  ))
+  function toggleStart() {
+    setStartQuiz(prevState => !prevState)
+  }
 
   return (
     <>
-      {questionElements}
+      {startQuiz ? <Quiz /> : <StartScreen toggleStart={toggleStart} />}
     </>
   )
 }
