@@ -8,24 +8,37 @@ export default function Quiz() {
 
     useEffect(() => {
         async function getQuestions() {
-            const response = await fetch("https://opentdb.com/api.php?amount=5")
+            const response = await fetch("https://opentdb.com/api.php?amount=5&difficulty=easy")
             const data = await response.json()
-            setAllQuestions(data.results)
+            const decodedData = data.results.map(question => {
+                return {
+                    question: decode(question.question),
+                    incorrect_answers: question.incorrect_answers.map(answer => decode(answer)),
+                    correct_answer: decode(question.correct_answer)
+                }
+            })
+            setAllQuestions(decodedData)
         }
         getQuestions()
     }, [])
+
+    // allQuestions is an array of OBJECTS; each object has a question,
+    // an array of incorrect answers, and a correct answer
   
     const questionElements = allQuestions.map((question, index) => (
         <Question
             key={index}
-            question={decode(question.question)}
-            answers={decode(question.incorrect_answers).concat(decode(question.correct_answer))}
+            question={question.question}
+            answers={question.incorrect_answers.concat(question.correct_answer)}
         />
     ))
 
     return (
         <>
             {questionElements}
+            <button type="button">
+                Check answers
+            </button>
         </>
     )
 }
