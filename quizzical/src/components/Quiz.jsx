@@ -5,7 +5,7 @@ import './Quiz.css'
 
 export default function Quiz() {
     const [allQuestions, setAllQuestions] = useState([])
-    const [checking, setChecking] = useState(false)
+    const [quizState, setQuizState] = useState({checking: false, round: 0, points: 0})
 
     useEffect(() => {
         async function getQuestions() {
@@ -22,7 +22,7 @@ export default function Quiz() {
             setAllQuestions(decodedData)
         }
         getQuestions()
-    }, [])
+    }, [quizState.round])
 
     function randomizedAnswers(incorrect_answers, correct_answer) {
         const decodedIncorrectAnswers = incorrect_answers.map(answer => decode(answer));
@@ -39,20 +39,37 @@ export default function Quiz() {
             question={question.question}
             correct_answer={question.correct_answer}
             all_answers={question.all_answers}
-            checking={checking}
+            checking={quizState.checking}
         />
     ))
 
     function toggleCheck() {
-        setChecking(prevState =>!prevState)
+        setQuizState(prevState => ({
+            ...prevState, 
+            checking: !prevState.checking 
+        }));
+    }
+
+    function restartQuiz() {
+        setQuizState(prevState => ({
+            checking: !prevState.checking, 
+            round: prevState.round + 1
+        }))
     }
 
     return (
         <div className="quiz-container">
             {questionElements}
-            <button onClick={toggleCheck} className="check-answers-button" type="button">
-                Check answers
-            </button>
+            <div className="quiz-bottom">
+                {quizState.checking && <h3 className="quiz-score">You scored X correct answers</h3>}
+                <button 
+                    onClick={() => quizState.checking ? restartQuiz() : toggleCheck()} 
+                    className="check-answers-button" 
+                    type="button"
+                >
+                    {quizState.checking ? "Play again" : "Check answers"}
+                </button>
+            </div>
         </div>
     )
 }

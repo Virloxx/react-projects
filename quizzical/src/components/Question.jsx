@@ -13,21 +13,21 @@ export default function Question(props) {
             if (answer == props.correct_answer) {
                 return {
                     backgroundColor: "#94D7A2",
-                    border: "1.5px solid transparent"
+                    border: "1px solid transparent"
                 }
             }
             else if (selectedAnswer === answer && answer != props.correct_answer) {
                 return {
                     backgroundColor: "#F8BCBC",
-                    border: "1.5px solid transparent"
+                    border: "1px solid transparent"
                 }
             }
         }
         if (selectedAnswer === answer) {
-                return {
-                    backgroundColor: "#d6dbf5", 
-                    border: "1.5px solid transparent"
-                }
+            return {
+                backgroundColor: "#d6dbf5", 
+                border: "1px solid transparent"
+            }
         } 
         else {
             return { 
