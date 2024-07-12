@@ -15,20 +15,30 @@ export default function Quiz() {
                 return {
                     question: decode(question.question),
                     incorrect_answers: question.incorrect_answers.map(answer => decode(answer)),
-                    correct_answer: decode(question.correct_answer)
+                    correct_answer: decode(question.correct_answer),
+                    all_answers: randomizedAnswers(question.incorrect_answers, question.correct_answer)
                 }
             })
             setAllQuestions(decodedData)
         }
         getQuestions()
     }, [])
+
+    function randomizedAnswers(incorrect_answers, correct_answer) {
+        const decodedIncorrectAnswers = incorrect_answers.map(answer => decode(answer));
+        const decodedCorrectAnswer = decode(correct_answer);
+        const allAnswers = [...decodedIncorrectAnswers];
+        const randomIndex = Math.floor(Math.random() * (allAnswers.length + 1));
+        allAnswers.splice(randomIndex, 0, decodedCorrectAnswer);
+        return allAnswers;
+    }
   
-    const questionElements = allQuestions.map((question, index) => (
+    const questionElements = allQuestions.map((question) => (
         <Question
-            key={index}
+            key={question.question}
             question={question.question}
             correct_answer={question.correct_answer}
-            incorrect_answers={question.incorrect_answers}
+            all_answers={question.all_answers}
             checking={checking}
         />
     ))

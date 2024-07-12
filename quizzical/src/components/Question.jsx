@@ -37,9 +37,7 @@ export default function Question(props) {
         }
     }
 
-    const allAnswers = props.incorrect_answers.concat(props.correct_answer)    
-
-    const answers = allAnswers.map((answer) => (
+    const answers = props.all_answers.map((answer) => (
             <button 
                 onClick={() => handleClick(answer)}
                 className="answer-button"
