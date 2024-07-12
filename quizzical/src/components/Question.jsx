@@ -43,6 +43,7 @@ export default function Question(props) {
                 className="answer-button"
                 style={styles(answer)}
                 key={answer}
+                disabled={props.checking}
             >
                 {answer}
             </button>

@@ -27,12 +27,12 @@ export default function Quiz() {
     function randomizedAnswers(incorrect_answers, correct_answer) {
         const decodedIncorrectAnswers = incorrect_answers.map(answer => decode(answer));
         const decodedCorrectAnswer = decode(correct_answer);
-        const allAnswers = [...decodedIncorrectAnswers];
-        const randomIndex = Math.floor(Math.random() * (allAnswers.length + 1));
-        allAnswers.splice(randomIndex, 0, decodedCorrectAnswer);
-        return allAnswers;
+        const randomizedAnswers = [...decodedIncorrectAnswers];
+        const randomIndex = Math.floor(Math.random() * (randomizedAnswers.length + 1));
+        randomizedAnswers.splice(randomIndex, 0, decodedCorrectAnswer);
+        return randomizedAnswers;
     }
-  
+    
     const questionElements = allQuestions.map((question) => (
         <Question
             key={question.question}
@@ -40,6 +40,7 @@ export default function Quiz() {
             correct_answer={question.correct_answer}
             all_answers={question.all_answers}
             checking={quizState.checking}
+            increment_points={incrementPoints}
         />
     ))
 
@@ -49,11 +50,19 @@ export default function Quiz() {
             checking: !prevState.checking 
         }));
     }
-
+    
     function restartQuiz() {
         setQuizState(prevState => ({
             checking: !prevState.checking, 
-            round: prevState.round + 1
+            round: prevState.round + 1,
+            points: 0
+        }))
+    }
+
+    function incrementPoints() {
+        setQuizState(prevState => ({
+            ...prevState,
+            points: prevState.points + 1
         }))
     }
 
@@ -61,7 +70,9 @@ export default function Quiz() {
         <div className="quiz-container">
             {questionElements}
             <div className="quiz-bottom">
-                {quizState.checking && <h3 className="quiz-score">You scored X correct answers</h3>}
+                {quizState.checking && <h3 className="quiz-score">
+                    You scored {`${quizState.points ?? 0}/${allQuestions.length}`} correct answers
+                </h3>}
                 <button 
                     onClick={() => quizState.checking ? restartQuiz() : toggleCheck()} 
                     className="check-answers-button" 
