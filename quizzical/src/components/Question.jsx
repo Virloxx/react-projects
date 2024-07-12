@@ -8,10 +8,42 @@ export default function Question(props) {
         setSelectedAnswer(index)
     }
 
-    const answers = props.answers.map((answer) => (
+    const styles = (answer) => {
+        if (props.checking) {
+            if (answer == props.correct_answer) {
+                return {
+                    backgroundColor: "#94D7A2",
+                    border: "1.5px solid transparent"
+                }
+            }
+            else if (selectedAnswer === answer && answer != props.correct_answer) {
+                return {
+                    backgroundColor: "#F8BCBC",
+                    border: "1.5px solid transparent"
+                }
+            }
+        }
+        if (selectedAnswer === answer) {
+                return {
+                    backgroundColor: "#d6dbf5", 
+                    border: "1.5px solid transparent"
+                }
+        } 
+        else {
+            return { 
+                backgroundColor: "#f5f7fb ",
+                border: "1px solid #4D5B9E"
+            }
+        }
+    }
+
+    const allAnswers = props.incorrect_answers.concat(props.correct_answer)    
+
+    const answers = allAnswers.map((answer) => (
             <button 
                 onClick={() => handleClick(answer)}
-                className={`answer-button ${selectedAnswer === answer ? "selected" : ""}`}
+                className="answer-button"
+                style={styles(answer)}
                 key={answer}
             >
                 {answer}
