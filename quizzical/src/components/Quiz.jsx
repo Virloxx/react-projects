@@ -6,6 +6,7 @@ import './Quiz.css'
 export default function Quiz() {
     const [allQuestions, setAllQuestions] = useState([])
     const [quizState, setQuizState] = useState({checking: false, round: 0, points: 0})
+    const [selectedAnswers, setSelectedAnswers] = useState({})
 
     useEffect(() => {
         async function getQuestions() {
@@ -14,9 +15,9 @@ export default function Quiz() {
             const decodedData = data.results.map(question => {
                 return {
                     question: decode(question.question),
-                    incorrect_answers: question.incorrect_answers.map(answer => decode(answer)),
-                    correct_answer: decode(question.correct_answer),
-                    all_answers: randomizedAnswers(question.incorrect_answers, question.correct_answer)
+                    incorrectAnswers: question.incorrect_answers.map(answer => decode(answer)),
+                    correctAnswer: decode(question.correct_answer),
+                    allAnswers: randomizedAnswers(question.incorrect_answers, question.correct_answer)
                 }
             })
             setAllQuestions(decodedData)
@@ -24,46 +25,52 @@ export default function Quiz() {
         getQuestions()
     }, [quizState.round])
 
-    function randomizedAnswers(incorrect_answers, correct_answer) {
-        const decodedIncorrectAnswers = incorrect_answers.map(answer => decode(answer));
-        const decodedCorrectAnswer = decode(correct_answer);
+    function randomizedAnswers(incorrectAnswers, correctAnswer) {
+        const decodedIncorrectAnswers = incorrectAnswers.map(answer => decode(answer));
+        const decodedCorrectAnswer = decode(correctAnswer);
         const randomizedAnswers = [...decodedIncorrectAnswers];
         const randomIndex = Math.floor(Math.random() * (randomizedAnswers.length + 1));
         randomizedAnswers.splice(randomIndex, 0, decodedCorrectAnswer);
         return randomizedAnswers;
     }
     
-    const questionElements = allQuestions.map((question) => (
+    const questionElements = allQuestions.map((question, index) => (
         <Question
-            key={question.question}
+            key={index}
             question={question.question}
-            correct_answer={question.correct_answer}
-            all_answers={question.all_answers}
+            correctAnswer={question.correctAnswer}
+            allAnswers={question.allAnswers}
             checking={quizState.checking}
-            increment_points={incrementPoints}
+            selectedAnswer={selectedAnswers[index]}
+            setSelectedAnswer={(answer) => setSelectedAnswers(prevState => ({ ...prevState, [index]: answer }))}
         />
     ))
 
     function toggleCheck() {
-        setQuizState(prevState => ({
-            ...prevState, 
-            checking: !prevState.checking 
-        }));
+        if (!quizState.checking) {
+            let points = 0
+            allQuestions.forEach((question, index) => {
+                if (selectedAnswers[index] === question.correctAnswer) {
+                    points += 1
+                }
+            })
+            setQuizState(prevState => ({
+                ...prevState,
+                checking: true,
+                points: points
+            }))
+        } else {
+            restartQuiz()
+        }
     }
     
     function restartQuiz() {
         setQuizState(prevState => ({
-            checking: !prevState.checking, 
+            checking: false, 
             round: prevState.round + 1,
             points: 0
         }))
-    }
-
-    function incrementPoints() {
-        setQuizState(prevState => ({
-            ...prevState,
-            points: prevState.points + 1
-        }))
+        setSelectedAnswers({})
     }
 
     return (
@@ -74,7 +81,7 @@ export default function Quiz() {
                     You scored {`${quizState.points ?? 0}/${allQuestions.length}`} correct answers
                 </h3>}
                 <button 
-                    onClick={() => quizState.checking ? restartQuiz() : toggleCheck()} 
+                    onClick={toggleCheck} 
                     className="check-answers-button" 
                     type="button"
                 >

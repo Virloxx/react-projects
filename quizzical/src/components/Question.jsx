@@ -1,29 +1,27 @@
-import { useState } from 'react'
 import './Question.css'
 
 export default function Question(props) {
-    const [selectedAnswer, setSelectedAnswer] = useState(null)
 
-    function handleClick(index) {
-        setSelectedAnswer(index)
+    function handleClick(answer) {
+        props.setSelectedAnswer(answer)
     }
 
     const styles = (answer) => {
         if (props.checking) {
-            if (answer == props.correct_answer) {
+            if (answer === props.correctAnswer) {
                 return {
                     backgroundColor: "#94D7A2",
                     border: "1px solid transparent"
                 }
             }
-            else if (selectedAnswer === answer && answer != props.correct_answer) {
+            else if (props.selectedAnswer === answer && answer !== props.correctAnswer) {
                 return {
                     backgroundColor: "#F8BCBC",
                     border: "1px solid transparent"
                 }
             }
         }
-        if (selectedAnswer === answer) {
+        if (props.selectedAnswer === answer) {
             return {
                 backgroundColor: "#d6dbf5", 
                 border: "1px solid transparent"
@@ -37,18 +35,17 @@ export default function Question(props) {
         }
     }
 
-    const answers = props.all_answers.map((answer) => (
-            <button 
-                onClick={() => handleClick(answer)}
-                className="answer-button"
-                style={styles(answer)}
-                key={answer}
-                disabled={props.checking}
-            >
-                {answer}
-            </button>
-        )
-    )
+    const answers = props.allAnswers.map((answer, index) => (
+        <button 
+            onClick={() => handleClick(answer)}
+            className="answer-button"
+            style={styles(answer)}
+            key={index}
+            disabled={props.checking}
+        >
+            {answer}
+        </button>
+    ))
 
     return (
         <div>
