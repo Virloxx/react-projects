@@ -10,7 +10,7 @@ export default function Quiz() {
 
     useEffect(() => {
         async function getQuestions() {
-            const response = await fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy")
+            const response = await fetch("https://opentdb.com/api.php?amount=5")
             const data = await response.json()
             const decodedData = data.results.map(question => {
                 const decodedIncorrectAnswers = question.incorrect_answers.map(answer => decode(answer));
