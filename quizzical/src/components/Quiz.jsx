@@ -13,24 +13,24 @@ export default function Quiz() {
             const response = await fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy")
             const data = await response.json()
             const decodedData = data.results.map(question => {
+                const decodedIncorrectAnswers = question.incorrect_answers.map(answer => decode(answer));
+                const decodedCorrectAnswer = decode(question.correct_answer);
                 return {
                     question: decode(question.question),
-                    incorrectAnswers: question.incorrect_answers.map(answer => decode(answer)),
-                    correctAnswer: decode(question.correct_answer),
-                    allAnswers: randomizedAnswers(question.incorrect_answers, question.correct_answer)
+                    incorrectAnswers: decodedIncorrectAnswers,
+                    correctAnswer: decodedCorrectAnswer,
+                    allAnswers: randomizedAnswers(decodedIncorrectAnswers, decodedCorrectAnswer)
                 }
             })
             setAllQuestions(decodedData)
         }
         getQuestions()
     }, [quizState.round])
-
+    
     function randomizedAnswers(incorrectAnswers, correctAnswer) {
-        const decodedIncorrectAnswers = incorrectAnswers.map(answer => decode(answer));
-        const decodedCorrectAnswer = decode(correctAnswer);
-        const randomizedAnswers = [...decodedIncorrectAnswers];
+        const randomizedAnswers = [...incorrectAnswers];
         const randomIndex = Math.floor(Math.random() * (randomizedAnswers.length + 1));
-        randomizedAnswers.splice(randomIndex, 0, decodedCorrectAnswer);
+        randomizedAnswers.splice(randomIndex, 0, correctAnswer);
         return randomizedAnswers;
     }
     
